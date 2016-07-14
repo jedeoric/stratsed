@@ -1,0 +1,276 @@
+        # This is a comment. It extends to the end of the line
+        GLOBAL {
+            OUTPUTNAME      "src/stratsed.asm";
+            INPUTNAME       "dump/stratsed.bin";
+            STARTADDR       $C000;
+            PAGELENGTH      0;                  # No paging
+            CPU             "6502";
+        };
+
+        # One segment for the whole stuff
+
+
+     #   RANGE { START $FF35;    END   $FFAA; TYPE Code;   NAME "STRATED_JUMPING_TABLE";    };
+	
+		RANGE { START $DB35;  END   $DB50;    TYPE Code;   NAME "XESAVE_ROUTINE"; COMMENT "Save the current screen (according to FLGTEL)"; };
+	
+		RANGE { START $E351;  END   $E360;    TYPE Code;   NAME "XFORMA_ROUTINE";  };
+		
+		RANGE { START $DB22;  END   $DB34;    TYPE Code;   NAME "XDEFSA_ROUTINE";  };
+	#################################################################### 	 XCOPY_ROUTINE		
+		
+		RANGE { START $E6BF;  END   $E6D6;    TYPE Code;   NAME "XCOPY_ROUTINE";  };
+		RANGE { START $E6D7;  END   $E6D7;    TYPE BYTETABLE;   };
+	#################################################################### 	 XDIRN_ROUTINE
+		RANGE { START $DA72;  END   $DA89;    TYPE Code;   NAME "XDIRN_ROUTINE";  };
+		RANGE { START $DA8a;  END   $DA8a;    TYPE BYTETABLE;   };
+		RANGE { START $DA8f;  END   $DA8f;    TYPE BYTETABLE;   };
+		RANGE { START $DA91;  END   $DA91;    TYPE BYTETABLE;   };
+		
+	#################################################################### 	 XPROT_ROUTINE		
+	RANGE { START $E0E5;  END   $E0E7;    TYPE Code;   NAME "XPROT_ROUTINE";  };
+	#################################################################### 	 XREN_ROUTINE		
+	RANGE { START $E027;  END   $E02f;    TYPE Code;   NAME "XREN_ROUTINE";  };	
+	RANGE { START $DF33;  END   $DF39;    TYPE Code;   NAME "XDELBK_ROUTINE";  };		
+		
+	RANGE { START $DF40;  END   $DF46;    TYPE Code;   NAME "XDELN_ROUTINE";  };			
+		
+	RANGE { START $E0E8;  END   $E0f0;    TYPE Code;   NAME "XUNPROT_ROUTINE";  };	
+		
+RANGE { START $EA54;  END   $EA58;    TYPE Code;   NAME "XBKP_ROUTINE";  };	
+	#################################################################### 	 XINITI_ROUTINE	
+	RANGE { START $E204;  END   $E208;    TYPE Code;   NAME "XINITI_ROUTINE";  };
+	RANGE { START $E27a;  END   $E27a;    TYPE BYTETABLE;   };	
+	RANGE { START $E2AD;  END   $E2AD;    TYPE BYTETABLE;   };	
+		
+	RANGE { START $D612; END   $D615;    TYPE Code;   NAME "XERREU_ROUTINE";  };
+
+	RANGE { START $DCCB; END   $DCCF;    TYPE Code;   NAME "XLOAD_ROUTINE";  };	
+	RANGE { START $DCB6; END   $DCB9;    TYPE Code;   NAME "XDEFLO_ROUTINE";  };	
+		
+	RANGE { START $DB57; END   $DB5a;    TYPE Code;   NAME "XSAVE_ROUTINE";  };		
+	#################################################################### 	 XNOMDE_ROUTINE	
+	RANGE { START $DE4F; END   $DE52;    TYPE Code;   NAME "XNOMDE_ROUTINE";  };		
+	RANGE { START $DEBD;  END   $DEBD;    TYPE BYTETABLE;   };
+
+	
+	RANGE { START $D90B; END   $D90F;    TYPE Code;   NAME "XDETSE_ROUTINE"; COMMENT "$D90B";   };		
+	
+	
+	RANGE { START $D856; END   $D859;    TYPE Code;   NAME "XLIBSE_ROUTINE"; COMMENT "$D856";   };	
+	
+	RANGE { START $D753; END   $D756;    TYPE Code;   NAME "XTRVCA_ROUTINE"; COMMENT "$D753";   };	
+
+	RANGE { START $D727; END   $D72A;    TYPE Code;   NAME "XTRVNM_ROUTINE"; COMMENT "$D727";   };		
+
+	RANGE { START $D73B; END   $D73f;    TYPE Code;   NAME "XTRVNX_ROUTINE"; COMMENT "$D73B";   };	
+	
+	RANGE { START $D701; END   $D704;    TYPE Code;   NAME "XCABU_ROUTINE"; COMMENT "$D701";   };	
+	
+	RANGE { START $D6E8; END   $D6EB;    TYPE Code;   NAME "XBUCA_ROUTINE"; COMMENT "$D6E8";   };
+	
+	RANGE { START $D6C8; END   $D6CA;    TYPE Code;   NAME "XVBUF1_ROUTINE"; COMMENT "$D6C8";   };
+		#################################################################### 	 XSVSEC_ROUTINE	
+		RANGE { START $D69A; END   $D6B4;    TYPE Code;   NAME "XSVSEC_ROUTINE"; COMMENT "$D69A";   };
+		RANGE { START $D6B5;  END   $D6B5;    TYPE BYTETABLE;   };
+		RANGE { START $D6BC;  END   $D6BC;    TYPE BYTETABLE;   };
+		
+	
+RANGE { START $D694; END   $D698;    TYPE Code;   NAME "XSAY_ROUTINE"; COMMENT "$D694";   };
+RANGE { START $D687; END   $D689;    TYPE Code;   NAME "XSBUF1_ROUTINE"; COMMENT "$D687";   };
+RANGE { START $D684; END   $D685;    TYPE Code;   NAME "XSBUF2_ROUTINE"; COMMENT "$D684";   };
+
+RANGE { START $D68A; END   $D68B;    TYPE Code;   NAME "XSBUF3_ROUTINE"; COMMENT "$D68A";   };
+
+RANGE { START $D621; END   $D624;    TYPE Code;   NAME "XPMAP_ROUTINE"; COMMENT "$D621";   };
+
+RANGE { START $F086; END   $F089;    TYPE Code;   NAME "XAPPEN_ROUTINE"; COMMENT "$F086";   };
+
+
+RANGE { START $F138; END   $F13b;    TYPE Code;   NAME "XREWIN_ROUTINE"; COMMENT "$F138";   };
+
+RANGE { START $F08A; END   $F08e;    TYPE Code;   NAME "XJUMP_ROUTINE"; COMMENT "$F08A";   };
+
+
+RANGE { START $EC59; END   $EC5d;    TYPE Code;   NAME "XLGBUF_ROUTINE"; COMMENT "$EC59";   };
+
+RANGE { START $D995; END   $D99e;    TYPE Code;   NAME "XERVEC_ROUTINE"; COMMENT "$D995";   };
+
+	#################################################################### 	 XMERGE_ROUTINE	
+RANGE { START $F30A; END   $F3B2;    TYPE Code;   NAME "XMERGE_ROUTINE"; COMMENT "$F30A";   };
+RANGE { START $F3B3;  END   $F3B3;    TYPE BYTETABLE;   };
+RANGE { START $F3B6;  END   $F3B6;    TYPE BYTETABLE;   };
+RANGE { START $F3CA;  END   $F3CA;    TYPE BYTETABLE; COMMENT "XDECIM $29  ; same as BINDX but displayed on channel 0";  };
+RANGE { START $F3CD;  END   $F3CD;    TYPE BYTETABLE; COMMENT "XX";  };
+
+
+
+RANGE { START $EEA1; END   $EEA5;    TYPE Code;   NAME "XFST_ROUTINE"; COMMENT "$EEA1";   };
+
+RANGE { START $F01C; END   $F01F;    TYPE Code;   NAME "XSPUT_ROUTINE"; COMMENT "$F01C";   };
+
+RANGE { START $F082; END   $F085;    TYPE Code;   NAME "XSTAKE_ROUTINE"; COMMENT "$F082";   };
+
+
+RANGE { START $EEDD; END   $EEe0;    TYPE Code;   NAME "XOPEN_ROUTINE"; COMMENT "$EEDD";   };
+
+RANGE { START $EFE9; END   $EFEc;    TYPE Code;   NAME "XCLOSE_ROUTINE"; COMMENT "$EFE9";   };
+
+RANGE { START $F14E; END   $F151;    TYPE Code;   NAME "XTAKE_ROUTINE"; COMMENT "$F14E";   };
+RANGE { START $D923; END   $D92F;    TYPE Code;   NAME "XCREAY_ROUTINE"; COMMENT "$D923";   };
+
+
+
+RANGE { START $D940; END   $D94C;    TYPE Code;   NAME "ROUTINE1"; COMMENT "$D940";   };
+
+	#################################################################### 	 ROUTINE2
+RANGE { START $D63D; END   $D63E;    TYPE Code;   NAME "ROUTINE2"; COMMENT "$D63D";   };
+
+
+	#################################################################### 	 ROUTINE3
+RANGE { START $D6B8; END   $D6Ba;    TYPE Code;   NAME "ROUTINE3"; COMMENT "$D6B8";   };
+
+	#################################################################### 	 ROUTINE4
+RANGE { START $D646; END   $D649;    TYPE Code;   NAME "ROUTINE4"; COMMENT "$D646";   };
+	#################################################################### 	 ROUTINE5
+RANGE { START $DF1C; END   $DF26;    TYPE Code;   NAME "ROUTINE5";  COMMENT "$DF1C";   };
+
+	#################################################################### 	 ROUTINE6
+RANGE { START $D640; END   $D641;    TYPE Code;   NAME "ROUTINE6";  COMMENT "$D640";   };
+
+	#################################################################### 	 ROUTINE7
+RANGE { START $D643; END   $D644;    TYPE Code;   NAME "ROUTINE7";  COMMENT "$D643";   };
+
+
+#define DECTRV $0A ; param/shift
+
+	LABEL { NAME "ADENT";     ADDR  $04;   };
+	LABEL { NAME "ADTMP";     ADDR  $06;   };
+	LABEL { NAME "ADPS";     ADDR  $08;   };
+	LABEL { NAME "ADTR";     ADDR  $0a;   };
+	
+
+	LABEL { NAME "TR5";     ADDR  $11;   };
+	LABEL { NAME "DEFAFF";     ADDR  $14;   };
+	########################################################################## Page 500
+	LABEL { NAME "DRIVE";     ADDR  $500;   };
+	LABEL { NAME "TRACK";     ADDR  $501;   };
+	LABEL { NAME "SECTOR";     ADDR  $502;   };
+	LABEL { NAME "RWBUF";     ADDR  $503; COMMENT "Sector buffer"; SIZE 2;   }; 
+	LABEL { NAME "ERRFLG";     ADDR  $50F; COMMENT "Error";   }; 
+	LABEL { NAME "ERRVEC";     ADDR  $510; COMMENT "Error";   }; 
+	
+	LABEL { NAME "ERRNB";     ADDR  $512; COMMENT "Error";   }; 
+	LABEL { NAME "SAVES";     ADDR  $513; COMMENT "XX";   }; 
+	
+	LABEL { NAME "POSNMP";     ADDR  $514;   };
+	LABEL { NAME "POSNMS";     ADDR  $515;   };
+	LABEL { NAME "POSNMX";     ADDR  $516;   };
+	LABEL { NAME "BUFNOM";     ADDR  $517; SIZE 11;   };
+	
+
+	
+	
+	LABEL { NAME "VSALO0";     ADDR  $528;  COMMENT "Flag R/W"; };
+	LABEL { NAME "VSALO1";     ADDR  $529;    };
+	LABEL { NAME "LOSALO";     ADDR  $52A;  SIZE 2; };
+
+	LABEL { NAME "FTYPE";     ADDR  $52C; COMMENT "File typ (b7=1 : basic, b6=1 : memory bloc, b4=1 : sequentiel file, b3=1 : direct file, b0=1 auto ";  };
+	
+	LABEL { NAME "DESALO";     ADDR  $52D; COMMENT "Start address of the file";  SIZE 2;  };
+	LABEL { NAME "FISALO";     ADDR  $52F; COMMENT "Start address of the file"; SIZE 2;   };
+	LABEL { NAME "EXSALO";     ADDR  $531; COMMENT "Execution address of the file";  SIZE 2; };
+	
+	LABEL { NAME "LOCRE";     ADDR  $533; };
+	LABEL { NAME "LOCREB";     ADDR  $535; };
+	LABEL { NAME "LOCREP";     ADDR  $537; };
+	LABEL { NAME "LOCRES";     ADDR  $538; };
+	LABEL { NAME "NBCRE";     ADDR  $539; };
+	LABEL { NAME "VCRE0";     ADDR  $53A; };
+	LABEL { NAME "BUFC0";     ADDR  $53B; };
+	LABEL { NAME "TAMPFC";     ADDR  $542; };
+	LABEL { NAME "BITMFC";     ADDR  $544; };
+	LABEL { NAME "INDFCB";     ADDR  $546; };
+	LABEL { NAME "FICTYP";     ADDR  $547; };	
+	LABEL { NAME "FICNUM";     ADDR  $548; };	
+	LABEL { NAME "FICLON";     ADDR  $54A; };	
+	LABEL { NAME "XFIELD";     ADDR  $54C; };	
+	LABEL { NAME "RWTS";     ADDR  $54F; };	
+	
+	########################################################################## Vectors
+	LABEL { NAME "XMERGE";     ADDR  $FF0E;   };	
+	LABEL { NAME "XFST";     ADDR  $FF11;   };	
+	LABEL { NAME "XSPUT";     ADDR  $FF14;   };	
+	LABEL { NAME "XSTAKE";     ADDR  $FF17;   };	
+	LABEL { NAME "XOPEN";     ADDR  $FF1A;   };	
+	LABEL { NAME "XCLOSE";     ADDR  $FF1D;   };	
+	LABEL { NAME "XTAKE";     ADDR  $FF20;   };	
+LABEL { NAME "XPUT";     ADDR  $FF23;   };	
+	LABEL { NAME "XAPPEN";     ADDR  $FF26;   };
+		LABEL { NAME "XREWIN";     ADDR  $FF29;   };
+		LABEL { NAME "XJUMP";     ADDR  $FF2c;   };
+		LABEL { NAME "XLGBUF";     ADDR  $FF2F;   };
+		LABEL { NAME "XERVEC";     ADDR  $FF32;   };
+		LABEL { NAME "XESAVE";     ADDR  $FF35;   };
+		LABEL { NAME "XCOPY";     ADDR  $FF38;   };
+		LABEL { NAME "XDNAME";     ADDR  $FF3B;   };
+		LABEL { NAME "XSTATU";     ADDR  $FF3E;   };
+		LABEL { NAME "XUPDAT";     ADDR  $FF41;   };
+		LABEL { NAME "XFORMA";     ADDR  $FF44;   };
+		LABEL { NAME "XREN";     ADDR  $FF47;   };
+		LABEL { NAME "XDELBK";     ADDR  $FF4A;   };
+		LABEL { NAME "XDELN";     ADDR  $FF4D;   };	
+		LABEL { NAME "XPROT";     ADDR  $FF50;   };
+		LABEL { NAME "XUNPROT";     ADDR  $FF53;   };		
+		LABEL { NAME "XDIRN";     ADDR  $FF56;   };				
+		LABEL { NAME "XBKP";     ADDR  $FF59;   };
+		LABEL { NAME "XINITI";     ADDR  $FF5C;   };
+		
+		
+		LABEL { NAME "XERREU";     ADDR  $FF5F;   };		
+		LABEL { NAME "XLOAD";     ADDR  $FF62;   };	
+		LABEL { NAME "XDEFSA";     ADDR  $FF65;   };	
+		LABEL { NAME "XDEFLO";     ADDR  $FF68;   };			
+		LABEL { NAME "XSAVE";     ADDR  $FF6B;   };	
+		LABEL { NAME "XNOMDE";     ADDR  $FF6E; COMMENT "Destroy file in BUFNOM";  };	
+		LABEL { NAME "XCREAY";     ADDR  $FF71;   };	
+		
+		LABEL { NAME "XDETSE";     ADDR  $FF74;   };
+		LABEL { NAME "XLIBSE";     ADDR  $FF77;   };
+		LABEL { NAME "XTRVCA";     ADDR  $FF7A;   };
+		LABEL { NAME "XTRVNM";     ADDR  $FF7D;   };		
+		LABEL { NAME "XTRVNX";     ADDR  $FF80;   };
+		LABEL { NAME "XCABU";     ADDR  $FF83;   };		
+		LABEL { NAME "XBUCA";     ADDR  $FF86;   };				
+		LABEL { NAME "XVBUF1";     ADDR  $FF89;   };
+		LABEL { NAME "XSVSEC";     ADDR  $FF8C;   };
+		LABEL { NAME "XSAY";     ADDR  $FF8F;   };		
+		LABEL { NAME "XSBUF1";     ADDR  $FF92;   };		
+		LABEL { NAME "XSBUF2";     ADDR  $FF95;   };				
+		LABEL { NAME "XSBUF3";     ADDR  $FF98;   };
+		LABEL { NAME "XSCAT";     ADDR  $FF9B;   };
+		LABEL { NAME "XPRSEC";     ADDR  $FFA1;   };
+		LABEL { NAME "XPBUF1";     ADDR  $FFA3;   };
+		LABEL { NAME "XPMAP";     ADDR  $FFA7;   };
+		LABEL { NAME "XWRTS";     ADDR  $FFAA;   };
+		
+		LABEL { NAME "FLGTEL";     ADDR  $20d;   };
+		
+		LABEL { NAME "RESB";     ADDR  $02;  Size 2;  };
+		LABEL { NAME "RES";     ADDR  $00;  Size 2;  };
+		
+		#strings
+		RANGE { START $e197;    END   $e1b3; TYPE TextTable; NAME "str_format_another_disk";  COMMENT "$E197";     };
+
+		RANGE { START $e161;    END   $e18a; TYPE TextTable;      };
+		RANGE { START $e1de;    END   $e1f5; TYPE TextTable;  NAME "str_formatting_done";   COMMENT "$E1DE";  };
+		RANGE { START $e5c6;    END   $e5d8; TYPE TextTable;    NAME "str_insert_disk_to"; COMMENT "$E5C6";    };
+		RANGE { START $DF0F;   END   $DF1B; TYPE TextTable;  NAME "protected"; COMMENT "$DF0F";    };
+		
+		#define BUFFERS
+		LABEL { NAME "BUF1";     ADDR  $c100;   };
+		LABEL { NAME "BUF2";     ADDR  $c200;   };
+		LABEL { NAME "BUF3";     ADDR  $c300;   };
+		LABEL { NAME "BUF4";     ADDR  $c400;   };
+		
+		
