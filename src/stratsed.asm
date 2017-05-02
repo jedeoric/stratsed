@@ -1,5 +1,5 @@
 ; da65 V2.15
-; Created:    2017-04-22 17:52:14
+; Created:    2017-05-02 11:24:43
 ; Input file: dump/stratsed.bin
 ; Page:       1
 
@@ -18,9 +18,7 @@ TR2             := $000E
 TR3             := $000F
 L0020           := $0020
 L0021           := $0021
-TD0             := $004D
-TD1             := $004E
-TD2             := $004F
+HRS1            := $004D
 L0064           := $0064
 L0065           := $0065
 L0080           := $0080
@@ -32,6 +30,19 @@ SCRDX           := $0228
 VNMI            := $02F4
 L02FA           := $02FA
 VAPLIC          := $02FD
+V1DRB           := $0300
+V1DRA           := $0301
+V1DDRB          := $0302
+V1DDRA          := $0303
+V1T1            := $0304
+V1T1L           := $0306
+V1T2            := $0308
+V1ACR           := $030B
+V1PCR           := $030C
+V1IFR           := $030D
+V1ER            := $030E
+V1DRAB          := $030F
+V2DRA           := $0321
 L040C           := $040C
 VEXBNK          := $0414
 BNKCIB          := $0417
@@ -349,7 +360,7 @@ LC141:  dex
         ora     (RES,x)
         ora     (RES+1,x)
         ora     (VARAPL+39,x)
-        asl     TD1,x
+        asl     HRS1+1,x
         .byte   $0C
         brk
         .byte   $03
@@ -4871,7 +4882,7 @@ LD0CA:  .byte   $FF
         tya
         pha
         php
-LD403:  lda     $030E
+LD403:  lda     V1ER
         pha
         lda     $032E
         pha
@@ -4881,7 +4892,7 @@ LD403:  lda     $030E
         ora     #$02
         sta     $031E
         lda     #$7F
-        sta     $030E
+        sta     V1ER
         sta     $032E
         jsr     LD4DA
         pla
@@ -4889,7 +4900,7 @@ LD403:  lda     $030E
         pla
         sta     $032E
         pla
-        sta     $030E
+        sta     V1ER
 LD42D:  bit     ERRFLG
         bmi     LD437
         lda     $050E
@@ -5009,9 +5020,9 @@ LD4F6:  sta     $050D
         nop
         sta     $0311
         lda     RWBUF
-        sta     TD1
+        sta     HRS1+1
         lda     RWBUF+1
-        sta     TD2
+        sta     $4F
         lda     #$20
         bit     $0505
         bpl     LD53C
@@ -5060,19 +5071,19 @@ LD54A:  lda     $050D
 LD563:  lda     $0318
         bmi     LD563
         lda     $0313
-        sta     (TD1),y
+        sta     (HRS1+1),y
         iny
         bne     LD563
-        inc     TD2
+        inc     $4F
         jmp     LD563
 
 LD575:  lda     $0318
         bmi     LD575
-        lda     (TD1),y
+        lda     (HRS1+1),y
         sta     $0313
         iny
         bne     LD575
-        inc     TD2
+        inc     $4F
         jmp     LD575
 
         nop
@@ -5271,12 +5282,12 @@ LD6CB           := * + 1
         bit     LC3A9
         .byte   $2C
 LD6CE:  lda     #$C4
-        sta     TD1
+        sta     HRS1+1
         lda     #$00
-        sta     TD0
+        sta     HRS1
         ldy     #$00
         tya
-LD6D9:  sta     (TD0),y
+LD6D9:  sta     (HRS1),y
         iny
         bne     LD6D9
         rts
@@ -5469,23 +5480,23 @@ LD864:  txa
         dec     LC203
 LD86A:  dec     LC202
         lda     #$10
-        sta     TD0
+        sta     HRS1
         lda     #$C2
         lsr     $55
-        sta     TD1
+        sta     HRS1+1
 LD877:  ldy     #$00
-LD879:  lda     (TD0),y
+LD879:  lda     (HRS1),y
         bne     LD887
         iny
         bne     LD879
-        inc     TD1
+        inc     HRS1+1
         sec
         ror     $55
         bne     LD877
 LD887:  lda     #$01
         ldx     #$00
 LD88B:  pha
-        and     (TD0),y
+        and     (HRS1),y
         bne     LD895
         pla
         asl     a
@@ -5493,11 +5504,11 @@ LD88B:  pha
         bne     LD88B
 LD895:  pla
         eor     #$FF
-        and     (TD0),y
-        sta     (TD0),y
+        and     (HRS1),y
+        sta     (HRS1),y
         lda     #$00
         sta     RES+1
-        stx     TD0
+        stx     HRS1
         tya
         bit     $55
         bpl     LD8AE
@@ -5511,7 +5522,7 @@ LD8AE:  asl     a
         rol     RES+1
         asl     a
         rol     RES+1
-        ora     TD0
+        ora     HRS1
         sta     RES
         ldy     #$00
         lda     LC207
@@ -5570,10 +5581,10 @@ LD906:  rol     a
 XDETSE_ROUTINE:
         jsr     code_to_define
         jsr     ROUTINE1
-        ora     (TD0),y
-        cmp     (TD0),y
+        ora     (HRS1),y
+        cmp     (HRS1),y
         beq     LD922
-        sta     (TD0),y
+        sta     (HRS1),y
         inc     LC202
         bne     LD922
         .byte   $EE
@@ -5589,10 +5600,10 @@ LD924           := * + 1
         eor     #$FF
         jsr     ROUTINE1
 LD92C           := * + 1
-        and     (TD0),y
-        cmp     (TD0),y
+        and     (HRS1),y
+        cmp     (HRS1),y
         beq     LD922
-        sta     (TD0),y
+        sta     (HRS1),y
         lda     LC202
 LD936:  bne     LD93B
         dec     LC203
@@ -5605,9 +5616,9 @@ ROUTINE1:
         pha
         lda     #$C2
         adc     TR1
-        sta     TD1
+        sta     HRS1+1
         lda     #$10
-        sta     TD0
+        sta     HRS1
         pla
         rts
 
@@ -6006,11 +6017,11 @@ LDC2B:  jsr     LDE08
         jsr     XVBUF1_ROUTINE
         lda     RWBUF
         ldy     RWBUF+1
-        sta     TD0
-        sty     TD1
+        sta     HRS1
+        sty     HRS1+1
         ldy     #$FF
 LDC45:  iny
-        lda     (TD0),y
+        lda     (HRS1),y
         sta     BUF1,y
         cpy     LOSALO
         bne     LDC45
@@ -6274,17 +6285,17 @@ LDE60:  dec     LC204
         sta     LC402
         tay
         lda     #$10
-        sta     TD0
+        sta     HRS1
 LDE79:  lda     BUF4,y
-        stx     TD1
-        cpy     TD1
+        stx     HRS1+1
+        cpy     HRS1+1
         beq     LDE85
         sta     BUF4,x
 LDE85:  lda     #$00
         sta     BUF4,y
         inx
         iny
-        dec     TD0
+        dec     HRS1
         bne     LDE79
         pla
         tay
@@ -6787,19 +6798,19 @@ LE253:  sta     BUF2,x
 LE28A:  sta     LC202
         sty     LC203
         lda     #$14
-        sta     TD2
+        sta     $4F
         clc
         .byte   $24
 LE296:  sec
         php
         ldy     #$10
         sty     $50
-LE29C:  lda     TD2
+LE29C:  lda     $4F
         ldy     $50
         jsr     XCREAY_ROUTINE
         dec     $50
         bne     LE29C
-        inc     TD2
+        inc     $4F
         plp
         bcc     LE296
 LE2AC:  brk
@@ -6930,7 +6941,7 @@ LE37C:  ldy     #$00
         jsr     LE3AD
         sta     ($11),y
         clc
-        lda     TD0
+        lda     HRS1
         adc     $11
         sta     $11
         lda     LE53A
@@ -6963,7 +6974,7 @@ LE3B7:  php
 LE3CE:  sta     LE562
         clc
         adc     #$3C
-        sta     TD0
+        sta     HRS1
         lda     LC209
         and     #$7F
         sta     $50
@@ -7180,7 +7191,7 @@ LE53B:  plp
         ora     (RES,x)
         ora     (RES+1,x)
         ora     (VARAPL+39,x)
-        asl     TD1,x
+        asl     HRS1+1,x
         .byte   $0C
         brk
         .byte   $03
@@ -7331,8 +7342,8 @@ LE678:  lda     #$4E
         .byte   $14
         rts
 
-LE67F:  lsr     TD0
-        lsr     TD2
+LE67F:  lsr     HRS1
+        lsr     $4F
         ldx     #$0C
 LE685:  dex
         bmi     LE6AE
@@ -7346,17 +7357,17 @@ LE68F:  asl     LC901
         bne     LE685
         bit     $70
         bvs     LE6AB
-        ror     TD0
+        ror     HRS1
         .byte   $D0
 LE6A0:  .byte   $E4
-LE6A1:  ror     TD2
+LE6A1:  ror     $4F
         bit     $70
         bvs     LE685
         cpy     #$3F
         beq     LE685
 LE6AB:  jmp     LDB84
 
-LE6AE:  bit     TD0
+LE6AE:  bit     HRS1
         bpl     LE6BE
         ldx     #$0C
 LE6B4:  lda     $010D,x
@@ -7460,7 +7471,7 @@ LE768:  ldx     $66
 LE76E:  nop
         nop
 LE770:  jsr     LE67F
-        bit     TD2
+        bit     $4F
         bpl     LE790
         bit     $71
         bmi     LE77F
@@ -7913,7 +7924,7 @@ LEAEC:  ldx     SECTOR
         ldx     $51
         stx     $60
         sta     $6F
-        lsr     TD0
+        lsr     HRS1
         jsr     LEB6D
         lda     $55
         bne     LEB15
@@ -7944,7 +7955,7 @@ LEB26:  ldy     $61
         ldx     $62
         stx     TRACK
         sec
-        ror     TD0
+        ror     HRS1
         jsr     LEB6D
         bcc     LEB61
         lsr     $53
@@ -7987,7 +7998,7 @@ LEB78:  pha
         and     ($50),y
         sta     $52
         bne     LEB8C
-        bit     TD0
+        bit     HRS1
         bpl     LEB89
         jsr     XSVSEC_ROUTINE
         jmp     LEB8C
@@ -8073,10 +8084,10 @@ LEC1A:  lda     INDFCB
         tay
         iny
         iny
-        sty     TD0
+        sty     HRS1
         jsr     LEBEE
         ldy     #$10
-        lda     TD0
+        lda     HRS1
         sta     (DECDEB),y
         sta     INDFCB
         jsr     LEBDD
@@ -8183,12 +8194,12 @@ code_to_define2:
         bcs     LECD5
         txa
         ldy     #$05
-        sty     TD1
+        sty     HRS1+1
         ldx     #$44
         cmp     #$08
         bcc     LECED
         inx
-LECED:  stx     TD0
+LECED:  stx     HRS1
         and     #$07
         tax
         lda     #$00
@@ -8198,11 +8209,11 @@ LECF5:  rol     a
         bpl     LECF5
         inx
         pha
-        and     (TD0,x)
-        sta     TD2
+        and     (HRS1,x)
+        sta     $4F
         pla
-        eor     (TD0,x)
-        ldy     TD2
+        eor     (HRS1,x)
+        ldy     $4F
 LED04:  rts
 
 LED05:  sec
@@ -8250,7 +8261,7 @@ LED4C:  rts
 LED4D:  jmp     LDCC6
 
 LED50:  bcc     LED56
-        ora     TD1
+        ora     HRS1+1
         bne     LED66
 LED56:  ldy     #$20
         lda     (DECDEB),y
@@ -8262,7 +8273,7 @@ LED56:  ldy     #$20
         jsr     ROUTINE2
         jmp     LEE8A
 
-LED66:  lda     TD1
+LED66:  lda     HRS1+1
 LED68:  sta     LOCRE
         sty     $0534
         sta     LOCREB
@@ -8547,7 +8558,7 @@ LEFAF:  lda     BUF4,x
         cpy     #$10
         bne     LEFAF
         jsr     code_to_define2
-        sta     (TD0,x)
+        sta     (HRS1,x)
         plp
         ldy     #$11
         lda     #$00
@@ -8584,7 +8595,7 @@ LF001:  rts
 
 LF002:  jsr     LECA1
         jsr     code_to_define2
-        sta     (TD0,x)
+        sta     (HRS1,x)
         bit     FICTYP
         bmi     LF001
         jmp     LED23
@@ -8787,13 +8798,13 @@ XTAKE_ROUTINE:
         lda     DESALO
         sec
         sbc     (DECDEB),y
-        sta     TD1
+        sta     HRS1+1
         lda     DESALO+1
         iny
         sbc     (DECDEB),y
         tay
         bcc     LF1A8
-        ora     TD1
+        ora     HRS1+1
         beq     LF1A8
         bit     $51
         bpl     LF147
@@ -8806,7 +8817,7 @@ XTAKE_ROUTINE:
         inx
 LF19B:  sec
         sbc     (DECDEB),y
-        sta     TD1
+        sta     HRS1+1
         iny
         txa
         sbc     (DECDEB),y
@@ -8841,10 +8852,10 @@ LF1D4:  sec
         bcs     LF1C4
         bcc     LF1C2
 LF1DB:  asl     a
-        sta     TD0
+        sta     HRS1
         txa
-        adc     TD0
-        sta     TD0
+        adc     HRS1
+        sta     HRS1
         lda     INDFCB
         ldy     #$10
         cmp     (DECDEB),y
@@ -8852,7 +8863,7 @@ LF1DB:  asl     a
         sta     (DECDEB),y
         tay
         jsr     LEBEE
-LF1F2:  lda     TD0
+LF1F2:  lda     HRS1
         ldy     #$1C
         sta     (DECDEB),y
         jsr     LED39
@@ -10210,7 +10221,7 @@ LFBC9:  .byte   $52
         adc     L0020
         .byte   $12
         .byte   $47
-        eor     (TD1,x)
+        eor     (HRS1+1,x)
         lsr     $4C55
         eor     ($54,x)
         eor     #$4F

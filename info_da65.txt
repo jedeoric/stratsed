@@ -9,39 +9,107 @@ GLOBAL {
 
         # One segment for the whole stuff
 
+
 ################################################################## TELEMON 
 
-LABEL { NAME "RESB";   ADDR $02; Size 2; };
-LABEL { NAME "RES";    ADDR $00; Size 2; };	
-LABEL { NAME "DECDEB"; ADDR $04; Size 2; };	
-LABEL { NAME "DECFIN"; ADDR $06; Size 2; };	
-LABEL { NAME "DECCIB"; ADDR $08; Size 2; };	
-LABEL { NAME "DECTRV"; ADDR $0A; Size 2; };	
-
-LABEL { NAME "TD0";    ADDR $4D; Size 1; };	
-LABEL { NAME "TD1";    ADDR $4E; Size 1; };	
-LABEL { NAME "TD2";    ADDR $4F; Size 1; };	
-LABEL { NAME "VARLNG"; ADDR $8c; SIZE 44;};	
-LABEL { NAME "VARAPL"; ADDR $d0; SIZE 44;};	
-LABEL { NAME "TR0";    ADDR $0c; SIZE 1; };	
-LABEL { NAME "TR1";    ADDR $0d; SIZE 1; };	
-LABEL { NAME "TR2";    ADDR $0e; SIZE 1; };	
-LABEL { NAME "TR3";    ADDR $0f; SIZE 1; };	
+############################################################Page 0
+LABEL { NAME "RESB";   ADDR  $02; Size 2;  };
+LABEL { NAME "RES";    ADDR  $00; Size 2;  };	
+LABEL { NAME "DECDEB"; ADDR  $04; Size 2;  };	
+LABEL { NAME "DECFIN"; ADDR  $06; Size 2;  };	
+LABEL { NAME "DECCIB"; ADDR  $08; Size 2;  };	
+LABEL { NAME "DECTRV"; ADDR  $0A; Size 2;  };	
+LABEL { NAME "HRS1";   ADDR  $4D; Size 2;  };
+LABEL { NAME "VARLNG"; ADDR  $8c; SIZE 44; };	
+LABEL { NAME "VARAPL"; ADDR  $d0; SIZE 44; };	
+LABEL { NAME "TR0";    ADDR  $0c; SIZE 1;  };	
+LABEL { NAME "TR1";    ADDR  $0d; SIZE 1;  };	
+LABEL { NAME "TR2";    ADDR  $0e; SIZE 1;  };	
+LABEL { NAME "TR3";    ADDR  $0f; SIZE 1;  };	
 
 
+LABEL { NAME "FLGTEL"; ADDR  $020D; Size 1; };
+LABEL { NAME "SCRX";   ADDR  $0220; SIZE 1; };	
+LABEL { NAME "SCRDX";  ADDR  $0228; SIZE 1; };	
+LABEL { NAME "VNMI";   ADDR  $02F4; Size 2; };			
+LABEL { NAME "VAPLIC"; ADDR  $02FD; Size 2; };			
 
-LABEL { NAME "VNMI";   ADDR $02F4; Size 2;  };			
-LABEL { NAME "FLGTEL"; ADDR $020D; Size 1;  };
-LABEL { NAME "VAPLIC"; ADDR $02FD; Size 2;  };			
-LABEL { NAME "BUFNOM"; ADDR $0517; SIZE 11; };	
+############################################################Page 3
+		
+#VIA 1
+LABEL { NAME "V1DRB";  ADDR  $0300;  Size 1;  };
+LABEL { NAME "V1DRA";  ADDR  $0301;  Size 1;  };
+LABEL { NAME "V1DDRB"; ADDR  $0302;  Size 1;  };
+LABEL { NAME "V1DDRA"; ADDR  $0303;  Size 1;  };
 
-LABEL { NAME "VEXBNK"; ADDR $0414; SIZE 1;  };	
-LABEL { NAME "BNKCIB"; ADDR $0417; SIZE 1;  };	
-LABEL { NAME "SCRX";   ADDR $0220; SIZE 1;  };	
-LABEL { NAME "SCRDX";  ADDR $0228; SIZE 1;  };	
+LABEL { NAME "V1T1";   ADDR  $0304;  Size 2;  };
+LABEL { NAME "V1T1L";  ADDR  $0306;  Size 2;  };
+LABEL { NAME "V1T2";   ADDR  $0308;  Size 2;  };
 
-LABEL { NAME "BUFEDT"; ADDR $0590; size 110;};			
+LABEL { NAME "V1ACR";  ADDR  $030b;  Size 1;  };
+LABEL { NAME "V1PCR";  ADDR  $030c;  Size 1;  };
+LABEL { NAME "V1IFR";  ADDR  $030d;  Size 1;  };
+LABEL { NAME "V1ER";   ADDR  $030e;  Size 1;  };
+LABEL { NAME "V1DRAB"; ADDR  $030f;  Size 1;  };		
 
+
+#via2
+LABEL { NAME "V2DRA";     ADDR  $0321;   };
+
+############################################################Page 4
+
+LABEL { NAME "VEXBNK"; ADDR  $0414; SIZE 1;  };	
+LABEL { NAME "BNKCIB"; ADDR  $0417; SIZE 1;  };	
+
+############################################################Page 5
+
+LABEL { NAME "BUFNOM"; ADDR  $0517; SIZE 11; };	
+LABEL { NAME "BUFEDT"; ADDR  $0590; size 110;};	
+	
+
+########################################################################## Page 5 ;  Origin : Stratsed 
+LABEL { NAME "DRIVE";  ADDR $500;   };
+LABEL { NAME "TRACK";  ADDR $501;   };
+LABEL { NAME "SECTOR"; ADDR $502;   };
+LABEL { NAME "RWBUF";  ADDR $503; COMMENT "Sector buffer"; SIZE 2;   }; 
+LABEL { NAME "ERRFLG"; ADDR $50F; COMMENT "Error";   }; 
+LABEL { NAME "ERRVEC"; ADDR $510; SIZE 2; COMMENT "Error";   }; 
+
+LABEL { NAME "ERRNB";  ADDR $512; COMMENT "Error";   }; 
+LABEL { NAME "SAVES";  ADDR $513; COMMENT "XX";   }; 
+
+LABEL { NAME "POSNMP"; ADDR $514;   };
+LABEL { NAME "POSNMS"; ADDR $515;   };
+LABEL { NAME "POSNMX"; ADDR $516;   };
+
+LABEL { NAME "VSALO0"; ADDR $528;  COMMENT "Flag R/W"; };
+LABEL { NAME "VSALO1"; ADDR $529;    };
+LABEL { NAME "LOSALO"; ADDR $52A;  SIZE 2; };
+
+LABEL { NAME "FTYPE";  ADDR $52C; COMMENT "File typ (b7=1 : basic, b6=1 : memory bloc, b4=1 : sequentiel file, b3=1 : direct file, b0=1 auto ";  };
+
+LABEL { NAME "DESALO"; ADDR $52D; COMMENT "Start address of the file";  SIZE 2;  };
+LABEL { NAME "FISALO"; ADDR $52F; COMMENT "Start address of the file"; SIZE 2;   };
+LABEL { NAME "EXSALO"; ADDR $531; COMMENT "Execution address of the file";  SIZE 2; };
+
+LABEL { NAME "LOCRE";  ADDR $533; };
+LABEL { NAME "LOCREB"; ADDR $535; };
+LABEL { NAME "LOCREP"; ADDR $537; };
+LABEL { NAME "LOCRES"; ADDR $538; };
+LABEL { NAME "NBCRE";  ADDR $539; };
+LABEL { NAME "VCRE0";  ADDR $53A; };
+LABEL { NAME "BUFC0";  ADDR $53B; };
+LABEL { NAME "TAMPFC"; ADDR $542; };
+LABEL { NAME "BITMFC"; ADDR $544; };
+LABEL { NAME "INDFCB"; ADDR $546; };
+LABEL { NAME "FICTYP"; ADDR $547; };	
+LABEL { NAME "FICNUM"; ADDR $548; };	
+LABEL { NAME "FICLON"; ADDR $54A; };	
+LABEL { NAME "XFIELD"; ADDR $54C; };	
+LABEL { NAME "RWTS";   ADDR $54F; };		
+	
+	
+	
 
 ################################################################################################ $C000
 
@@ -218,49 +286,7 @@ RANGE { START $F14E; END   $F151;    TYPE Code;   NAME "XTAKE_ROUTINE"; COMMENT 
 
 
 	
-	########################################################################## Page 500
-	LABEL { NAME "DRIVE";     ADDR  $500;   };
-	LABEL { NAME "TRACK";     ADDR  $501;   };
-	LABEL { NAME "SECTOR";     ADDR  $502;   };
-	LABEL { NAME "RWBUF";     ADDR  $503; COMMENT "Sector buffer"; SIZE 2;   }; 
-	LABEL { NAME "ERRFLG";     ADDR  $50F; COMMENT "Error";   }; 
-	LABEL { NAME "ERRVEC";     ADDR  $510; SIZE 2; COMMENT "Error";   }; 
-	
-	LABEL { NAME "ERRNB";     ADDR  $512; COMMENT "Error";   }; 
-	LABEL { NAME "SAVES";     ADDR  $513; COMMENT "XX";   }; 
-	
-	LABEL { NAME "POSNMP";     ADDR  $514;   };
-	LABEL { NAME "POSNMS";     ADDR  $515;   };
-	LABEL { NAME "POSNMX";     ADDR  $516;   };
-	
 
-	
-	
-	LABEL { NAME "VSALO0";     ADDR  $528;  COMMENT "Flag R/W"; };
-	LABEL { NAME "VSALO1";     ADDR  $529;    };
-	LABEL { NAME "LOSALO";     ADDR  $52A;  SIZE 2; };
-
-	LABEL { NAME "FTYPE";     ADDR  $52C; COMMENT "File typ (b7=1 : basic, b6=1 : memory bloc, b4=1 : sequentiel file, b3=1 : direct file, b0=1 auto ";  };
-	
-	LABEL { NAME "DESALO";     ADDR  $52D; COMMENT "Start address of the file";  SIZE 2;  };
-	LABEL { NAME "FISALO";     ADDR  $52F; COMMENT "Start address of the file"; SIZE 2;   };
-	LABEL { NAME "EXSALO";     ADDR  $531; COMMENT "Execution address of the file";  SIZE 2; };
-	
-	LABEL { NAME "LOCRE";     ADDR  $533; };
-	LABEL { NAME "LOCREB";     ADDR  $535; };
-	LABEL { NAME "LOCREP";     ADDR  $537; };
-	LABEL { NAME "LOCRES";     ADDR  $538; };
-	LABEL { NAME "NBCRE";     ADDR  $539; };
-	LABEL { NAME "VCRE0";     ADDR  $53A; };
-	LABEL { NAME "BUFC0";     ADDR  $53B; };
-	LABEL { NAME "TAMPFC";     ADDR  $542; };
-	LABEL { NAME "BITMFC";     ADDR  $544; };
-	LABEL { NAME "INDFCB";     ADDR  $546; };
-	LABEL { NAME "FICTYP";     ADDR  $547; };	
-	LABEL { NAME "FICNUM";     ADDR  $548; };	
-	LABEL { NAME "FICLON";     ADDR  $54A; };	
-	LABEL { NAME "XFIELD";     ADDR  $54C; };	
-	LABEL { NAME "RWTS";     ADDR  $54F; };	
 	
 	########################################################################## Vectors
 	LABEL { NAME "XMERGE";     ADDR  $FF0E;   };	
